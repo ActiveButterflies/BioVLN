@@ -1,0 +1,40 @@
+# Data & results
+data/
+output/
+results/
+splits/
+*.json.gz
+*.navmesh
+*.semantic.glb
+*.semantic.txt
+*.glb
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+env/
+
+# Blender
+*.blend1
+*.blend2
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+/tmp/
+
+# Large assets
+assets/instruments/
+*.png
+*.jpg
