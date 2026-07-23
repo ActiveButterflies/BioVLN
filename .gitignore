@@ -36,5 +36,7 @@ Thumbs.db
 
 # Large assets
 assets/instruments/
-*.png
-*.jpg
+
+# Allow figures/ directory (paper figures)
+!figures/*.png
+!figures/*.jpg
