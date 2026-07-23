@@ -2,6 +2,12 @@
 
 BioVLN is a simulation platform for developing and evaluating visual-language navigation (VLN) agents in biomedical laboratories. It introduces a **three-zone operational envelope model** (body, clearance, operation area) that governs scene generation, navigation evaluation, and safety monitoring. The platform supports both **zero-shot benchmarking** (6 methods, 47 scenes, 1,667 episodes) and **learned policy training** via standard Gym/RL interfaces.
 
+![Platform Architecture](https://raw.githubusercontent.com/ActiveButterflies/BioVLN/master/figures/fig4.png)
+
+*Figure 1: BioVLN platform architecture. P1 (left): user-authored scene import (Path B). P2 (right): procedural generation (Path A). Both converge into a shared benchmark pipeline with six-method evaluation and safety metrics.*
+
+---
+
 ### Key Features
 
 - **Three-Zone Operational Envelope** — Zone 1 (physical bounding box), Zone 2 (0.25 m clearance margin), Zone 3 (operational envelope). Jointly governs scene generation, collision avoidance, and safety evaluation.
@@ -88,20 +94,12 @@ BioVLN/
 │   ├── config_two_room.py     — Two-Room baked GLB config
 │   └── config_lsat_target.py  — LSAT target scene config
 │
-└── figures/             # Paper figures with explanations (see figures/README.md)
+└── figures/             # Paper figures
     ├── README.md              — Figure descriptions and paper context
     ├── fig0.png               — Safety boundary visualization
     ├── fig1.png               — Three-zone operational envelope model
     ├── fig3.png               — Scene-level goal positions
-    ├── fig4.png               — Platform architecture diagram
-    ├── three_zone_*.png       — Zone model variants
-    ├── per_category_*.png     — Per-instrument performance breakdowns
-    ├── difficulty_breakdown.png — Difficulty-tier analysis
-    ├── failure_analysis.png   — VLFM failure mode analysis
-    ├── pipeline_*.png         — Pipeline architecture details
-    ├── scene_layout.png       — Layout template comparison
-    ├── lsat_trajectories.png  — LSAT scene trajectory overlay
-    └── two_room_trajectories.png — Two-Room cross-room trajectories
+    └── fig4.png               — Platform architecture diagram
 ```
 
 ---
@@ -306,7 +304,7 @@ export DEEPSEEK_API_KEY="sk-..."       # DeepSeek-chat (LLM-Frontier)
 
 ## Paper Figures
 
-See [figures/README.md](figures/README.md) for descriptions of all 17 figures used in the paper, including the three-zone model, pipeline architecture, per-category performance breakdowns, safety visualizations, and trajectory overlays.
+See [figures/README.md](figures/README.md) for all 4 paper figures with inline viewing and descriptions.
 
 ## License
 
