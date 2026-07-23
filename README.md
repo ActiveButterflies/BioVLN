@@ -16,17 +16,6 @@ BioVLN is a simulation platform for developing and evaluating visual-language na
 - **Safety Metrics** — MCR (Minimum Clearance Radius) and VRT (Violation Rate at Threshold), computed from the three-zone model.
 - **Training Pipeline** — Trajectory recording, PyTorch Dataset, Gym environment, and unified interface for behavioral cloning and RL.
 
-### Results Summary
-
-| Method | MS-DEV SR | MS-VAL SR | MS-TEST SR | Two-Room SR | LSAT SR |
-|--------|-----------|-----------|------------|-------------|---------|
-| Random | 26.9% | 22.0% | 31.7% | 10.0% | 32.5% |
-| Oracle | 71.9% | 76.0% | 79.2% | 80.0% | 77.5% |
-| Frontier | 74.4% | 80.0% | 82.5% | 84.0% | 87.5% |
-| LLM-Frontier | 74.4% | 84.0% | 82.5% | 84.0% | 87.5% |
-| 3-Zone Oracle | 83.8% | 84.0% | 83.3% | 86.0% | 92.5% |
-| VLFM | 19.4% | 38.0% | — | 28.0% | 62.5% |
-
 ---
 
 ## Directory Structure
