@@ -233,28 +233,13 @@ Zone 2 hazard threshold: <0.5 m indicates a safety violation (equivalent to ente
 
 ## Three-Zone Operational Envelope
 
-```
-         ┌─────────────────────────┐
-         │     Zone 3:             │
-         │  Operational Envelope   │  ← δ_i = 0.5–0.9 m from face
-         │  ┌───────────────┐      │
-         │  │  Zone 2:      │      │
-         │  │  Clearance    │      │  ← ε_c = 0.25 m buffer
-         │  │  ┌───────┐    │      │
-         │  │  │Zone 1 │    │      │  ← Physical bounding box
-         │  │  │ Body  │    │      │
-         │  │  └───────┘    │      │
-         │  │  Instrument   │      │
-         │  └───────────────┘      │
-         │     ↑ operational face   │
-         └─────────────────────────┘
-                      ↑
-                   goal g_i (Eq. 1)
-```
+![Three-Zone Model](https://raw.githubusercontent.com/ActiveButterflies/BioVLN/master/figures/fig1.png)
 
-- **Zone 1:** Axis-aligned bounding box from GLB geometry
-- **Zone 2:** 0.25 m buffer on all four horizontal sides; overlap prohibited during scene generation
-- **Zone 3:** Instrument-specific approach region extending from the operational face
+*Figure 2: Operational-face goal navigation. Left: blue solid = correct navigation to the operational face (red point); red dashed = incorrect (reaches incubator but not its operational surface). Right: top-down view of the operational face.*
+
+- **Zone 1 (Physical Bounding Box):** Each instrument occupies an axis-aligned bounding box. Wall instruments contact the wall on one face; table-top instruments rest on measured furniture surfaces.
+- **Zone 2 (Collision Clearance):** 0.25 m buffer on all four horizontal sides; overlap prohibited during scene generation, guaranteeing navigable gaps $\ge$ 0.5 m.
+- **Zone 3 (Operational Envelope):** Instrument-specific approach region of depth $\delta_i$ (0.5--0.9 m) extending from the operational face. The goal position sits at its outer boundary.
 
 ---
 
