@@ -289,11 +289,10 @@ This project is released for academic research purposes.
 If you use BioVLN in your research, please cite our paper:
 
 ```bibtex
-@inproceedings{liu2026biovln,
+@article{liu2026biovln,
   title={BioVLN: A Simulation Platform for Visual Language Navigation in Biomedical Laboratories},
   author={Liu, Zhe and Lu, Quan and Du, Zhaohui and Wang, Zhe and Jin, Huanbo and
           Gu, Jiaming and Wang, Qi and Xiao, Ting and Pan, Minting and Zhou, Dongzhan},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-  year={2027}
+  year={2026}
 }
 ```
