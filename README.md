@@ -83,6 +83,17 @@ BioVLN/
 │   ├── config_two_room.py     — Two-Room baked GLB config
 │   └── config_lsat_target.py  — LSAT target scene config
 │
+├── geometry/            # Operational-pose contract + geometry validation
+│   ├── operational_pose_v3.py     — Terminal-pose contract (three-zone envelope)
+│   ├── build_navmesh_r018.py      — NavMesh baking at 0.18 m agent radius
+│   ├── derive_pose_dataset_v2.py  — Terminal reference poses from measured geometry
+│   ├── run_revised_geometry_v3.py — Contract-based evaluation runner
+│   └── audit_navmesh_pose_v3.py   — Pose / NavMesh consistency audit
+│
+├── tools/               # Operating-viewpoint supervision
+│   ├── collect_views.py       — Render RGB-D views labelled by the contract
+│   └── train_views.py         — Train the single-frame admissibility model
+│
 └── figures/             # Paper figures
     ├── README.md              — Figure descriptions and paper context
     ├── fig0.png               — Safety boundary visualization
@@ -240,6 +251,54 @@ Zone 2 hazard threshold: <0.5 m indicates a safety violation (equivalent to ente
 - **Zone 1 (Physical Bounding Box):** Each instrument occupies an axis-aligned bounding box. Wall instruments contact the wall on one face; table-top instruments rest on measured furniture surfaces.
 - **Zone 2 (Collision Clearance):** 0.25 m buffer on all four horizontal sides; overlap prohibited during scene generation, guaranteeing navigable gaps $\ge$ 0.5 m.
 - **Zone 3 (Operational Envelope):** Instrument-specific approach region of depth $\delta_i$ (0.5--0.9 m) extending from the operational face. The goal position sits at its outer boundary.
+
+---
+
+## Operating-Pose Contract
+
+`geometry/operational_pose_v3.py` holds the contract used to decide whether a run ended at an
+operable pose. A STOP is accepted only when, on the same instrument instance:
+
+1. the base centre lies in the admissible region on the usable side (0.50--0.90 m from the
+   measured usable surface, within the lateral extent),
+2. the heading is within tolerance of the outward control-face normal (30 deg by default),
+3. the 0.18 m base footprint clears the surrounding furniture,
+4. the instance carries the requested category, and
+5. the final step records no native collision.
+
+The module is standalone: it takes a scene specification plus a terminal pose and returns the
+verdict and the failing condition, so it can be reused without the rest of the platform.
+
+```python
+from geometry.operational_pose_v3 import PoseConfig, scene_from_spec, match_target, score_terminal
+
+cfg    = PoseConfig()                       # standoff, footprint radius, heading tolerance
+scene  = scene_from_spec(spec)              # measured geometry of one scene
+region = match_target(scene, episode)       # the instrument instance this episode scores
+result = score_terminal(base_xy, heading_xy, did_stop, region, scene, cfg,
+                        legacy_radius_m=0.5)
+print(result["success"], result["failure_reasons"])
+```
+
+`geometry/run_revised_geometry_v3.py` replays stored terminal records through this contract, and
+`geometry/audit_navmesh_pose_v3.py` checks that the reference poses are reachable on the baked mesh.
+
+---
+
+## Operating-Viewpoint Supervision
+
+`tools/` turns the contract into visual supervision for a robot that has to judge its own pose:
+
+```bash
+python tools/collect_views.py --out views.npz --size 224    # sample views around every instrument
+python tools/train_views.py  --data views.npz --out results.json
+```
+
+`collect_views.py` renders RGB-D on four radii and twelve bearings around each instrument and
+labels every frame with the contract (admissible / not, plus which side of the instrument the
+camera faces), so the label comes from geometry rather than from a human annotator.
+`train_views.py` trains a small convolutional model on those frames and evaluates it with a
+scene-level split, i.e. on layouts that never appear in training.
 
 ---
 
