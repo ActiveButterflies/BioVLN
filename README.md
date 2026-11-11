@@ -246,7 +246,7 @@ Zone 2 hazard threshold: <0.5 m indicates a safety violation (equivalent to ente
 
 ![Three-Zone Model](https://raw.githubusercontent.com/ActiveButterflies/BioVLN/master/figures/fig1.png)
 
-*Figure 2: Operational-face goal navigation. Left: blue solid = correct navigation to the operational face (red point); red dashed = incorrect (reaches incubator but not its operational surface). Right: top-down view of the operational face.*
+*Figure 2: Usable-side navigation for a centrifuge. (a) The usable-side approach follows the control face, while another side reaches comparable proximity without an admissible terminal pose. (b) The base centre must lie inside the position region on the usable side, the heading within tolerance of the outward control-face normal, and the 0.18 m footprint must clear the surrounding furniture. Two failures are marked: a centre outside the region, and a correct position pointing away from the control face.*
 
 - **Zone 1 (Physical Bounding Box):** Each instrument occupies an axis-aligned bounding box. Wall instruments contact the wall on one face; table-top instruments rest on measured furniture surfaces.
 - **Zone 2 (Collision Clearance):** 0.25 m buffer on all four horizontal sides; overlap prohibited during scene generation, guaranteeing navigable gaps $\ge$ 0.5 m.
